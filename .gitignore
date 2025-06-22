@@ -1,0 +1,24 @@
+# Dados brutos e arquivos grandes
+data/*.csv
+data/*.zip
+
+# Resultados e figuras geradas
+figures/
+!figures/.gitkeep
+
+# Arquivos temporários e cache
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+*.ipynb_checkpoints
+
+# Configurações de IDE/editor
+.vscode/
+*.swp
+*.swo
+
+# Outros arquivos de sistema
+.DS_Store
+Thumbs.db
+venv/
