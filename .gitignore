@@ -3,8 +3,12 @@ data/*.csv
 data/*.zip
 
 # Resultados e figuras geradas
-figures/
+figures/*
 !figures/.gitkeep
+
+# Modelo treinado
+models/*
+!models/.gitkeep
 
 # Arquivos temporários e cache
 *.pyc

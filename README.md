@@ -45,6 +45,7 @@ Este projeto foi desenvolvido como parte do curso **CCC269 – Data Science**, o
 - `matplotlib`, `seaborn` – Visualizações
 - `folium` – Mapas e mapas de calor
 - `scikit-learn` – Modelagem preditiva
+- `dash` - Criação de dashboard interativo
 - `Jupyter` ou execução via script (`ds.py`)
 
 ---
@@ -84,30 +85,43 @@ Este projeto foi desenvolvido como parte do curso **CCC269 – Data Science**, o
 
 - **Resultado:** Relatório salvo em `figures/classificacao.txt` com métricas de desempenho
 
+### ✅ 5. Visualização e predição por meio de dashboard interativo
+- **Objetivo:** Apresentar gráficos de maneira interativa e efetuar predições por meio de interface
+
 ---
 
 ## 🚀 Como Executar
 
 1. **Clone o repositório:**
-   ```
+   ```sh
    git clone https://github.com/daltonadiers/dataScienceProject.git
    cd dataScienceProject
    ```
 
 2. **Instale as dependências:**
-   ```
-   pip install pandas numpy matplotlib seaborn folium scikit-learn
+   ```sh
+   pip install -r requirements.txt
    ```
 
 3. **Adicione o arquivo de dados em `data/`**  
    Baixe o arquivo `Chicago_Crimes_2001_to_2004.csv` do [Kaggle](https://www.kaggle.com/datasets/currie32/crimes-in-chicago) e coloque na pasta `data/`.
 
 4. **Execute o script principal:**
-   ```
+   ```sh
    python ds.py
    ```
 
-5. **Confira os resultados na pasta `figures/`.**
+5. **Confira os resultados na pasta `figures/` e se o modelo foi gerado em `modules\`.**
+
+6. **Execute o script para iniciar o servidor com os dashboards**
+   ```sh
+   python app.py
+   ```
+
+7. **Acesse a url**
+   ```
+   http://127.0.0.1:8050/
+   ```
 
 ---
 

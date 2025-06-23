@@ -1,13 +1,12 @@
 # ds.py
 import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
-import seaborn as sns
 import folium
 from folium.plugins import HeatMap
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report
+import joblib
 
 # 1. Leitura do dataset
 df = pd.read_csv('data/Chicago_Crimes_2001_to_2004.csv', on_bad_lines='skip', low_memory=False)
@@ -83,3 +82,5 @@ y_pred = clf.predict(X_test)
 with open("figures/classificacao.txt", "w") as f:
     f.write("Relatório de Classificação - RandomForestClassifier\n\n")
     f.write(classification_report(y_test, y_pred))
+
+joblib.dump(clf, './models/modelo_rf.pkl')
