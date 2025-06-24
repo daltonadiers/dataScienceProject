@@ -12,6 +12,14 @@ df = pd.read_csv(
     on_bad_lines='skip',
     low_memory=False
 )
+df1 = pd.read_csv(
+    'data/Chicago_Crimes_2005_to_2007.csv',
+    on_bad_lines='skip',
+    low_memory=False
+)
+
+df = pd.concat([df, df1], ignore_index=True)
+
 df['Date'] = pd.to_datetime(
     df['Date'],
     format='%m/%d/%Y %I:%M:%S %p',
@@ -55,7 +63,7 @@ tabs = dbc.Tabs([
 ], id="tabs", active_tab="tab-overview")
 
 overview_layout = dbc.Container([
-    dbc.Row(dbc.Col(html.H1("Chicago Crimes (2001–2004)", className="mb-4 text-center"), width=12)),
+    dbc.Row(dbc.Col(html.H1("Chicago Crimes (2001–2007)", className="mb-4 text-center"), width=12)),
     dbc.Row([
         dbc.Col([html.Label("Ano:"), dcc.Dropdown(
             id='year-filter',

@@ -1,12 +1,13 @@
 # ds.py
-import pandas as pd
-import matplotlib.pyplot as plt
-import folium
-from folium.plugins import HeatMap
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report
+from folium.plugins import HeatMap
+import matplotlib.pyplot as plt
+import pandas as pd
 import joblib
+import folium
+import os
 
 # 1. Leitura do dataset
 df = pd.read_csv('data/Chicago_Crimes_2001_to_2004.csv', on_bad_lines='skip', low_memory=False)
