@@ -1,92 +1,116 @@
-# 🔍 Crime Analysis in Chicago (2001–2004)
+# 🔍 Crime Analysis in Chicago (2001–2017)
 
-Análise exploratória e predição de crimes na cidade de Chicago, com base em dados públicos registrados pela polícia entre 2001 e 2004.
+Análise exploratória, predição e dashboard interativo de crimes na cidade de Chicago, a partir de dados públicos de 2001 a 2017.
 
 ---
 
 ## 📌 Sobre o Projeto
 
-Este projeto foi desenvolvido como parte do curso **CCC269 – Data Science**, orientado pelo **Prof. Dr. Carlos Amaral Hölbig**. O objetivo foi aplicar um pipeline completo de Ciência de Dados, desde a aquisição e limpeza dos dados até a modelagem preditiva e visualização.
+Este projeto foi desenvolvido como parte da disciplina **CCC269 – Data Science** da UPF, sob orientação do Prof. Dr. Carlos Amaral Hölbig. O pipeline inclui:
 
-**Tema livre** escolhido: **Crime Prediction and Analysis in Chicago**
+1. Aquisição e limpeza de dados  
+2. Análise exploratória  
+3. Modelagem preditiva (RandomForestClassifier e LightGBM)  
+4. Dashboard interativo com Dash  
 
 ---
 
 ## 🗃️ Dataset
 
-**Origem oficial:**  
-🔗 [Crimes in Chicago – Kaggle (por currie32)](https://www.kaggle.com/datasets/currie32/crimes-in-chicago)
+Os dados originais estão em [Kaggle – Crimes in Chicago (currie32)](https://www.kaggle.com/datasets/currie32/crimes-in-chicago).  
+Arquivos utilizados (diretório `data/`):
 
-**Arquivo utilizado neste projeto:**  
-- `Chicago_Crimes_2001_to_2004.csv`
+- `Chicago_Crimes_2001_to_2004.csv`  
+- `Chicago_Crimes_2005_to_2007.csv`  
+- `Chicago_Crimes_2008_to_2011.csv`  
+- `Chicago_Crimes_2012_to_2017.csv`  
+- `Chicago_Crimes_All.csv` (gerado pelo notebook `Source.ipynb` concatenando todos os anteriores)
 
-**Total de registros:** 1.923.515 crimes reportados
+### Principais variáveis
 
-### 📄 Principais variáveis do dataset:
-
-| Coluna                | Descrição |
-|-----------------------|-----------|
-| `Date`                | Data e hora do crime |
-| `Primary Type`        | Tipo principal de crime (ex: THEFT, BATTERY) |
-| `Description`         | Descrição detalhada |
-| `Location Description`| Tipo de local (rua, casa, escola, etc.) |
-| `Arrest`              | Houve prisão? (True/False) |
-| `Domestic`            | Foi um crime doméstico? (True/False) |
-| `District`            | Número do distrito policial |
-| `Latitude`, `Longitude` | Coordenadas do local |
-| `Community Area`, `Ward`, `FBI Code`, `Beat`, etc. | Outras características administrativas e geográficas |
-
----
-
-## 🛠️ Tecnologias Utilizadas
-
-- **Python 3.12**
-- `pandas`, `numpy` – Manipulação de dados
-- `matplotlib`, `seaborn` – Visualizações
-- `folium` – Mapas e mapas de calor
-- `scikit-learn` – Modelagem preditiva
-- `dash` - Criação de dashboard interativo
-- `Jupyter` ou execução via script (`ds.py`)
+| Coluna                   | Descrição                                                    |
+|--------------------------|--------------------------------------------------------------|
+| `Date`                   | Data e hora do registro (MM/DD/YYYY HH:MM:SS AM/PM)          |
+| `Primary Type`           | Categoria principal do crime                                 |
+| `Description`            | Descrição detalhada                                          |
+| `Location Description`   | Tipo de local (e.g. STREET, RESIDENCE, SCHOOL)               |
+| `Arrest`                 | Indicador de prisão (True/False)                             |
+| `Domestic`               | Indicador de crime doméstico (True/False)                    |
+| `District`               | Distrito policial                                            |
+| `Latitude`, `Longitude`  | Coordenadas geográficas                                      |
 
 ---
 
-## 📊 Etapas do Projeto
+## 🛠️ Tecnologias
 
-### ✅ 1. Carregamento e limpeza dos dados
-- Leitura do CSV com `on_bad_lines='skip'`
-- Conversão de colunas para tipos corretos
-- Remoção de valores nulos
-- Criação de colunas derivadas: `Year`, `Month`, `Hour`, `Weekday`
+- **Python 3.10**  
+- Bibliotecas:  
+  - **Dados & ML**: `pandas`, `numpy`, `scikit-learn`, `lightgbm`, `joblib`  
+  - **Visualização**: `matplotlib`, `seaborn`, `folium`, `plotly`, `dash`, `dash-bootstrap-components`
 
-### ✅ 2. Análise Exploratória
-- Top 10 crimes mais comuns (`Primary Type`)
-- Distribuição de crimes por hora do dia
-- Dias da semana com mais ocorrências
-- Localização geográfica dos crimes com mapa de calor
+---
 
-### ✅ 3. Visualizações geradas:
-- 📊 `figures/crimes_mais_comuns.png`
-- 🕒 `figures/crimes_por_hora.png`
-- 📆 `figures/crimes_por_dia.png`
-- 🗺️ `figures/mapa_calor.html`
+## 📊 Pipeline
 
-### ✅ 4. Modelagem preditiva
-- **Objetivo:** Prever o tipo de crime com base em:
-  - Hora do dia
-  - Distrito policial
-  - Se houve prisão
-  - Se foi um crime doméstico
+### 1. Pré-processamento (`Source.ipynb`)
 
-- **Modelo usado:** `RandomForestClassifier` (Scikit-learn)
+- Leitura de múltiplos CSVs com `parse_dates=['Date']` e `on_bad_lines='skip'`  
+- Conversão de tipos (`Date`, `Latitude`, `Longitude`)  
+- Geração de features temporais: `Year`, `Month`, `Hour`, `Weekday`  
+- Saída: `data/Chicago_Crimes_All.csv`  
 
-- **Pré-processamento adicional:**
-  - Classes com menos de 10 ocorrências foram removidas
-  - Dados foram divididos em treino e teste (70/30), com `stratify`
+### 2. Análise Exploratória (`ds.py` / Source.ipynb)
 
-- **Resultado:** Relatório salvo em `figures/classificacao.txt` com métricas de desempenho
+- Top 10 tipos de crime  
+- Distribuição por hora do dia  
+- Ocorrências por dia da semana  
+- Mapa de calor georreferenciado (Folium)  
+- **Saída em** `figures/`:  
+  - `crimes_mais_comuns.png`  
+  - `crimes_por_hora.png`  
+  - `crimes_por_dia.png`  
+  - `mapa_calor.html`  
 
-### ✅ 5. Visualização e predição por meio de dashboard interativo
-- **Objetivo:** Apresentar gráficos de maneira interativa e efetuar predições por meio de interface
+### 3. Modelagem Preditiva
+
+#### 3.1 LightGBM (`lgb.ipynb`)
+
+- **Problema**: classificação binária de `Arrest`  
+- **Pré-processamento**: colunas categóricas convertidas para `category`  
+- **Treinamento**:  
+  - Split estratificado 80/20  
+  - Parâmetros:  
+    - `objective='binary'`  
+    - `metric='binary_logloss'`  
+    - `learning_rate=0.05`  
+    - `num_leaves=31`  
+    - `seed=42`  
+  - Early stopping (50 rounds)  
+  - Log a cada 100 iterações  
+- **Avaliação**: acurácia, precisão, recall, F1-score e matriz de confusão exibidas no notebook  
+- **Exportação**: `models/modelo_lgb.pkl`  
+
+#### 3.2 RandomForestClassifier (`ds.py`)
+
+- **Problema**: classificação multi-classe de `Primary Type`  
+- **Pré-processamento**:  
+  - Remover classes com <10 ocorrências  
+  - Features: `Hour`, `Arrest`, `Domestic`, `District` (one-hot encoding)  
+  - Split estratificado 70/30  
+- **Treinamento**:  
+  - `RandomForestClassifier(n_estimators=100, random_state=42, n_jobs=-1)`  
+- **Validação**: relatório em `figures/classificacao.txt`  
+- **Exportação**: `models/modelo_rf.pkl`  
+
+### 4. Dashboard Interativo (`app.py`)
+
+- **Framework**: Dash + Bootstrap (tema LUX)  
+- **Abas**:  
+  - **Visão Geral**: filtros por ano e distrito, gráficos e mapa de calor  
+  - **Predição**: formulário para entrada de variáveis e previsão do tipo de crime  
+- **Execução**:  
+  ```bash
+  python app.py
 
 ---
 
