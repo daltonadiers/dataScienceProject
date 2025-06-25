@@ -8,6 +8,10 @@ h1, h2 {
   color: #ffffff;
 }
 
+.svg-container{
+  margin-top: 10px;
+}
+
 .container {
   background-color: #1e1e1e;
   padding: 2rem;
